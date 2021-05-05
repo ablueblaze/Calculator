@@ -44,34 +44,22 @@ function hasId(element) {
 }
 
 // Utilizing querySelectorAll allows for the number variable to scoop up all of the numbers into one.
-let number = document.querySelectorAll(".number");
-let operation = document.querySelectorAll(".operation");
+let button = document.querySelectorAll("button");
 
 
 
 // Using forEach is like putting a "onClick" function onto every number button.
-number.forEach((num) => {
-    num.addEventListener("click", (event) => {
-        // Using Number() to grab the value and make it into... A NUMBER!!!
-        console.log(Number(event.target.value));
-        
-        if (event.target.id == 'undefined'){
-            console.log("yep")
-        } 
-    })
-});
-
-operation.forEach((op) => {
-    op.addEventListener("click", (event) => {
-        console.log(event.target.id)
-
-        if (event.target.id == 'undefined') {
-            console.log("yep")
-        } else {
-            console.log("nope")
+button.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+        if (event.target.className == 'number'){
+            // Using Number() to grab the value and make it into... A NUMBER!!!
+            console.log(Number(event.target.value));
+        } else if (event.target.className == "operation"){
+            console.log(event.target.id);
         }
     })
 });
+
 
 function display(number){
     let display = document.querySelector("#display")
