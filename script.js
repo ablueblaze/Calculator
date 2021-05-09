@@ -49,6 +49,7 @@ function operate(firstNum, secondNum, operation){
 // Utilizing querySelectorAll allows for the number variable to scoop up all of the numbers into one.
 let button = document.querySelectorAll("button");
 let workingNum = '';
+let oldWorkingOperator = '';
 let workingOperator = '';
 
 function display(number){
@@ -59,16 +60,25 @@ function display(number){
 
 function heldVariables(btnClass){
     if(btnClass == 'operation'){
-        workingOperator = event.target.value;
-    } else {
+        if (event.target.value == 'equals') {
+            workingNum = operate(workingNum, workingNum, oldWorkingOperator);
+            workingOperator = '';
+            display(workingNum);
+        } else {
+            workingOperator = event.target.value;
+        }
+    } else if (btnClass == 'number') {
         if (workingOperator == ''){
             workingNum = Number(event.target.value);
         } else if (workingNum == "Sorry, we don't do that here."){
             workingNum = Number(event.target.value);
         } else if (workingOperator != ''){
             workingNum = operate(workingNum, event.target.value, workingOperator);
+            oldWorkingOperator = workingOperator;
             workingOperator = '';
         }
+    } else {
+        console.log("Still working on it.")
     }
 }
 
@@ -83,7 +93,6 @@ button.forEach((btn) => {
         } else if (event.target.className == "operation"){
             console.log(event.target.value);
             heldVariables(event.target.className);
-            workingOperator = event.target.value
         }
     })
 });
