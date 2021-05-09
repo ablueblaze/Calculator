@@ -39,8 +39,16 @@ function equal(){
 
 }
 
+function multiDigit(workingNum){
+    if (workingNum == '0') {
+        workingNum = event.target.value;
+    } else {
+        workingNum = workingNum.toString() + event.target.value;
+    }
+}
+
 function operate(firstNum, secondNum, operation){
-    console.log(workingNum);
+    console.log(workingNumA);
     console.log(workingOperator);
     return this[operation](Number(firstNum), Number(secondNum));
 }
@@ -48,7 +56,8 @@ function operate(firstNum, secondNum, operation){
 
 // Utilizing querySelectorAll allows for the number variable to scoop up all of the numbers into one.
 let button = document.querySelectorAll("button");
-let workingNum = '0';
+let workingNumA = '0';
+let workingNumB = '0';
 let oldWorkingOperator = '';
 let workingOperator = '';
 
@@ -61,24 +70,27 @@ function display(number){
 function bigOperation(btnClass){
     if(btnClass == 'operation'){
         if (event.target.value == 'equals') {
-            workingNum = operate(workingNum, workingNum, oldWorkingOperator);
+            workingNumA = operate(workingNumA, workingNumA, oldWorkingOperator);
             workingOperator = '';
-            display(workingNum);
+            display(workingNumA);
         } else if (event.target.value == 'clear') {
-            workingNum = '0';
+            workingNumA = '0';
             oldWorkingOperator = '';
             workingOperator = '';
-            display(workingNum);
+            display(workingNumA);
+        // } else if (event.target.value == 'decimal') {
+            // tempString = workingNumA.toString();
+            // workingNumA = tempString + '.';
         } else {
             workingOperator = event.target.value;
         }
     } else if (btnClass == 'number') {
         if (workingOperator == ''){
-            workingNum = Number(event.target.value);
-        } else if (workingNum == "Sorry, we don't do that here."){
-            workingNum = Number(event.target.value);
+            multiDigit(workingNumA);
+        } else if (workingNumA == "Sorry, we don't do that here."){
+            workingNumA = Number(event.target.value);
         } else if (workingOperator != ''){
-            workingNum = operate(workingNum, event.target.value, workingOperator);
+            workingNumA = operate(workingNumA, event.target.value, workingOperator);
             oldWorkingOperator = workingOperator;
             workingOperator = '';
         }
@@ -94,7 +106,7 @@ button.forEach((btn) => {
             // Using Number() to grab the value and make it into... A NUMBER!!!
             console.log(Number(event.target.value));
             bigOperation(event.target.className)
-            display(workingNum)
+            display(workingNumA)
         } else if (event.target.className == "operation"){
             console.log(event.target.value);
             bigOperation(event.target.className);
@@ -105,5 +117,5 @@ button.forEach((btn) => {
 
 
 
-display(workingNum)
+display(workingNumA)
 console.log("test");
