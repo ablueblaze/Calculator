@@ -12,7 +12,11 @@ function multiply(a, b){
 }
 
 function divide(a, b){
-    return a / b;
+    if (b == 0){
+        return "Sorry, we don't do that here."
+    } else {
+        return a / b;
+    }
 }
 
 function percent(){
@@ -36,14 +40,16 @@ function equal(){
 }
 
 function operate(firstNum, secondNum, operation){
+    console.log(workingNum);
+    console.log(workingOperator);
     return this[operation](Number(firstNum), Number(secondNum));
 }
 
 
 // Utilizing querySelectorAll allows for the number variable to scoop up all of the numbers into one.
 let button = document.querySelectorAll("button");
-let holdNum = '0';
-let holdOperator = '';
+let workingNum = '';
+let workingOperator = '';
 
 function display(number){
     let display = document.querySelector("#display")
@@ -52,18 +58,18 @@ function display(number){
 }
 
 function heldVariables(btnClass){
-    switch (btnClass){
-        case "number" :
-            if (holdNum == '0'){
-                holdNum = event.target.value;
-            } else{
-                holdNum = operate(holdNum, event.target.value, holdOperator);
-            }
-        case "operation" :
-            holdOperator = event.target.value;
+    if(btnClass == 'operation'){
+        workingOperator = event.target.value;
+    } else {
+        if (workingOperator == ''){
+            workingNum = Number(event.target.value);
+        } else if (workingNum == "Sorry, we don't do that here."){
+            workingNum = Number(event.target.value);
+        } else if (workingOperator != ''){
+            workingNum = operate(workingNum, event.target.value, workingOperator);
+            workingOperator = '';
+        }
     }
-    
-
 }
 
 // Using forEach is like putting a "onClick" function onto every number button.
@@ -73,10 +79,11 @@ button.forEach((btn) => {
             // Using Number() to grab the value and make it into... A NUMBER!!!
             console.log(Number(event.target.value));
             heldVariables(event.target.className)
-            display(holdNum)
+            display(workingNum)
         } else if (event.target.className == "operation"){
             console.log(event.target.value);
-            holdOperator = event.target.value
+            heldVariables(event.target.className);
+            workingOperator = event.target.value
         }
     })
 });
@@ -84,5 +91,5 @@ button.forEach((btn) => {
 
 
 
-display(holdNum)
+display(workingNum)
 console.log("test");
