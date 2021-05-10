@@ -1,3 +1,8 @@
+let button = document.querySelectorAll("button");
+let workingNumA = '0';
+let workingNumB = '0';
+let oldWorkingOperator = '';
+let workingOperator = '';
 
 function add(a, b){
     return a + b;
@@ -28,22 +33,30 @@ function posNeg(){
 }
 
 function decimal(){
-
+    // tempString = workingNumA.toString();
+    // workingNumA = tempString + '.';
 }
 
 function clear(){
-
+    workingNumA = '0';
+    oldWorkingOperator = '';
+    workingOperator = '';
+    display(workingNumA);
 }
 
 function equal(){
-
+    workingNumA = operate(workingNumA, workingNumB, oldWorkingOperator);
+    workingOperator = '';
+    display(workingNumA);
+    oldWorkingOperator = workingOperator;
+    workingOperator = '';
 }
 
 function multiDigit(workingNum){
     if (workingNum == '0') {
-        workingNum = event.target.value;
+        return event.target.value;
     } else {
-        workingNum = workingNum.toString() + event.target.value;
+        return workingNum + '' + event.target.value;
     }
 }
 
@@ -55,11 +68,6 @@ function operate(firstNum, secondNum, operation){
 
 
 // Utilizing querySelectorAll allows for the number variable to scoop up all of the numbers into one.
-let button = document.querySelectorAll("button");
-let workingNumA = '0';
-let workingNumB = '0';
-let oldWorkingOperator = '';
-let workingOperator = '';
 
 function display(number){
     let display = document.querySelector("#display")
@@ -69,33 +77,22 @@ function display(number){
 
 function bigOperation(btnClass){
     if(btnClass == 'operation'){
-        if (event.target.value == 'equals') {
-            workingNumA = operate(workingNumA, workingNumA, oldWorkingOperator);
-            workingOperator = '';
-            display(workingNumA);
-        } else if (event.target.value == 'clear') {
-            workingNumA = '0';
-            oldWorkingOperator = '';
-            workingOperator = '';
-            display(workingNumA);
-        // } else if (event.target.value == 'decimal') {
-            // tempString = workingNumA.toString();
-            // workingNumA = tempString + '.';
-        } else {
-            workingOperator = event.target.value;
-        }
+        workingOperator = event.target.value;
     } else if (btnClass == 'number') {
         if (workingOperator == ''){
-            multiDigit(workingNumA);
+            workingNumA = multiDigit(workingNumA);
+            display(workingNumA);
         } else if (workingNumA == "Sorry, we don't do that here."){
-            workingNumA = Number(event.target.value);
+            workingNumA = multiDigit(workingNumA);
+            display(workingNumA);
         } else if (workingOperator != ''){
-            workingNumA = operate(workingNumA, event.target.value, workingOperator);
-            oldWorkingOperator = workingOperator;
-            workingOperator = '';
+            workingNumB = multiDigit(workingNumB);
+            display(workingNumB);
+        } else {
+            display("Number Problem 001")
         }
     } else {
-        console.log("Still working on it.")
+        display("Class problem 002")
     }
 }
 
@@ -106,7 +103,6 @@ button.forEach((btn) => {
             // Using Number() to grab the value and make it into... A NUMBER!!!
             console.log(Number(event.target.value));
             bigOperation(event.target.className)
-            display(workingNumA)
         } else if (event.target.className == "operation"){
             console.log(event.target.value);
             bigOperation(event.target.className);
