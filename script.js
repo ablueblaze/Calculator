@@ -110,24 +110,27 @@ function decimal(){
 
 function isNeg(){
     // Future work, Fix this spaghetti code of doom!
-    if (onSwitch == true){
-        if (numA != 0 ){
-            if (numA.includes('-') == true) {
-                numA.replace('-', '');
-            } else {
+    if (oldNum != '0'){
+        numA = oldNum;
+        if (onSwitch == true){
+            if (numA != 0 ){
+                if (numA.includes('-') == true) {
+                    numA.replace('-', '');
+                } else {
                 numA = '-' + numA;
             }
-        }
-        display(numA);
-   }else{ 
-        if (numB != 0){
-            if (numB.includes('-') == true) {
-                numB.replace('-', '');
-            } else {
-                numB = '-' + numB;
             }
+            display(numA);
+        }else{ 
+            if (numB != 0){
+                if (numB.includes('-') == true) {
+                    numB.replace('-', '');
+                } else {
+                    numB = '-' + numB;
+                }
+            }
+            display(numB);
         }
-        display(numB);
     }
     
 }
