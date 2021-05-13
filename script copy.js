@@ -55,13 +55,6 @@ function equal(){
     }
 }
 
-function multiDigit(workingNum){
-    if (workingNum == '0') {
-        return event.target.value;
-    } else {
-        return workingNum + '' + event.target.value;
-    }
-}
 
 function whichOperation(newInput) {
     switch (workingOperator){
