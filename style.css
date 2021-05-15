@@ -15,8 +15,30 @@ html {
 }
 
 button {
-    background-color: turquoise;
+    margin: 2px;
+    padding: 3px;
+    border-radius: 10px;
     width: 100px;
     height: 100px;
     font-size: xx-large;
+}
+
+.number {
+    background-color: turquoise;
+}
+
+.special {
+    background-color: cornflowerblue;
+}
+
+.clear {
+    background-color: crimson;
+}
+
+.math {
+    background-color: darkmagenta;
+}
+
+.equals {
+    background-color: darkslateblue;
 }

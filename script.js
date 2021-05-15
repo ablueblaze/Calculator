@@ -181,6 +181,3 @@ button.forEach((btn) => {
 });
 
 display(numA);
-
-
-
